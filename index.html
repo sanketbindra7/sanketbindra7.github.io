@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sanket Bindra</title>
+<meta name="description" content="Sanket Bindra — MBA candidate at HKUST and Columbia Business School (exchange). Finance, banking and strategy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --columbia: #B9D9EB;      /* Columbia blue */
+    --columbia-mid: #9CC7E2;
+    --columbia-light: #E3F0F8;
+    --columbia-wash: #F3F8FC;
+    --navy: #0B2545;          /* deep navy for contrast */
+    --blue: #1D4F91;
+    --text: #1B2433;
+    --muted: #546478;
+    --bg: #FFFFFF;
+    --card: #FFFFFF;
+    --border: #D4E5F1;
+    --shadow: 0 2px 4px rgba(11,37,69,.04), 0 12px 32px rgba(11,37,69,.08);
+    --shadow-lg: 0 4px 8px rgba(11,37,69,.06), 0 24px 48px rgba(11,37,69,.14);
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body {
+    margin: 0; background: var(--columbia-wash); color: var(--text);
+    font: 16px/1.65 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue); }
+  a:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 8px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .serif { font-weight: 800; letter-spacing: -.025em; } /* display headings: Inter only, per AGENTS.md */
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(11,37,69,.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(185,217,235,.18);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; font-weight: 700; white-space: nowrap; }
+  .brand .mono {
+    width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+    background: var(--columbia); color: var(--navy); font-weight: 800; font-size: 14px;
+  }
+  .nav ul { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+  .nav ul::-webkit-scrollbar { display: none; }
+  .nav a.link {
+    display: block; padding: 8px 14px; border-radius: 999px; text-decoration: none;
+    color: rgba(255,255,255,.75); font-weight: 500; font-size: 14px; white-space: nowrap; transition: .2s;
+  }
+  .nav a.link:hover { color: #fff; background: rgba(185,217,235,.15); }
+  .nav a.link.active { color: var(--navy); background: var(--columbia); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(900px 400px at 85% -10%, rgba(255,255,255,.55), transparent 60%),
+      linear-gradient(160deg, #CFE5F2 0%, var(--columbia) 45%, var(--columbia-mid) 100%);
+    padding: 72px 0 140px;
+  }
+  .hero::after { /* subtle grid texture */
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(11,37,69,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(11,37,69,.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(180deg, #000 0%, transparent 85%);
+  }
+  .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px;
+    background: rgba(255,255,255,.6); border: 1px solid rgba(11,37,69,.12);
+    padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--navy);
+  }
+  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 4px rgba(29,79,145,.18); }
+  h1 { font-size: clamp(42px, 6.5vw, 72px); line-height: 1; margin: 0 0 18px; color: var(--navy); letter-spacing: -.02em; }
+  .lede { font-size: 19px; color: #24405F; margin: 0 0 28px; max-width: 560px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 12px;
+    text-decoration: none; font-size: 15px; font-weight: 600; transition: .2s;
+    background: rgba(255,255,255,.75); color: var(--navy); border: 1px solid rgba(11,37,69,.12);
+  }
+  .btn:hover { background: #fff; transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn.primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .btn.primary:hover { background: var(--blue); }
+  .btn svg { width: 17px; height: 17px; flex: none; }
+
+  .portrait { position: relative; width: 280px; height: 280px; }
+  .portrait::before {
+    content: ""; position: absolute; inset: -14px; border-radius: 32px;
+    background: linear-gradient(135deg, rgba(255,255,255,.8), rgba(255,255,255,.2));
+    transform: rotate(6deg);
+  }
+  .portrait img {
+    position: relative; width: 100%; height: 100%; object-fit: cover; border-radius: 28px;
+    border: 6px solid #fff; box-shadow: var(--shadow-lg);
+  }
+
+  /* ---------- Tiles (overlap the hero) ---------- */
+  .tiles-wrap { position: relative; z-index: 2; margin-top: -92px; }
+  .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .tile {
+    display: flex; flex-direction: column; gap: 10px; min-height: 184px;
+    padding: 24px; border-radius: var(--radius); background: var(--card);
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+    text-decoration: none; color: var(--text); transition: .25s;
+    position: relative; overflow: hidden;
+  }
+  .tile::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: var(--columbia);
+    transition: .25s;
+  }
+  .tile:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .tile:hover::after { background: var(--blue); }
+  .tile .ico {
+    width: 44px; height: 44px; border-radius: 12px; background: var(--columbia-light);
+    display: grid; place-items: center; color: var(--blue);
+  }
+  .tile .ico svg { width: 22px; height: 22px; }
+  .tile .k { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--blue); }
+  .tile .v { font-weight: 700; color: var(--navy); font-size: 18px; line-height: 1.3; }
+  .tile .s { color: var(--muted); font-size: 14px; margin-top: auto; }
+  .tile .arrow { position: absolute; right: 20px; bottom: 20px; color: var(--columbia-mid); transition: .25s; }
+  .tile:hover .arrow { color: var(--blue); transform: translateX(4px); }
+
+  /* ---------- Stats ---------- */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 0;
+    margin-top: 28px; background: var(--navy); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+  }
+  .stat { padding: 22px 24px; border-right: 1px solid rgba(185,217,235,.15); }
+  .stat:last-child { border-right: 0; }
+  .stat .n { font-size: 30px; font-weight: 700; color: var(--columbia); line-height: 1.1; }
+  .stat .l { font-size: 13px; color: rgba(255,255,255,.75); margin-top: 4px; }
+
+  /* ---------- Sections ---------- */
+  section.block { padding: 88px 0 24px; }
+  .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; }
+  .sec-num {
+    font-size: 14px; font-weight: 700; color: var(--blue); background: var(--columbia);
+    padding: 4px 10px; border-radius: 8px; letter-spacing: .05em;
+  }
+  h2 { font-size: clamp(30px, 4vw, 40px); color: var(--navy); margin: 0; letter-spacing: -.01em; line-height: 1.1; }
+
+  .grid { display: grid; gap: 20px; }
+  .edu-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 26px; box-shadow: var(--shadow); transition: .25s; position: relative;
+  }
+  .card:hover { box-shadow: var(--shadow-lg); }
+
+  /* Education cards */
+  .edu { display: flex; flex-direction: column; }
+  .edu .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
+  .badge {
+    width: 52px; height: 52px; border-radius: 14px; flex: none; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--columbia), var(--columbia-mid)); color: var(--navy);
+    font-weight: 800; font-size: 15px; letter-spacing: .02em;
+  }
+  .when {
+    display: inline-block; background: var(--columbia-light); color: var(--navy);
+    font-weight: 600; font-size: 13px; padding: 4px 12px; border-radius: 999px; white-space: nowrap;
+  }
+  .edu h3 { margin: 0; font-size: 18px; color: var(--navy); line-height: 1.3; }
+  .loc { color: var(--muted); font-size: 14px; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+  .loc svg { width: 14px; height: 14px; }
+  .degree { margin: 14px 0 0; font-weight: 600; color: var(--text); font-size: 15px; }
+  .kv { margin: 12px 0 0; font-size: 14.5px; color: var(--text); }
+  .kv b { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--blue); margin-bottom: 4px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 13px; padding: 4px 11px; border-radius: 999px;
+    background: var(--columbia-wash); border: 1px solid var(--border); color: var(--navy);
+  }
+
+  /* Experience timeline */
+  .timeline { position: relative; display: grid; gap: 24px; padding-left: 36px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 3px; border-radius: 3px;
+    background: linear-gradient(var(--blue), var(--columbia));
+  }
+  .exp { position: relative; }
+  .exp::before {
+    content: ""; position: absolute; left: -32px; top: 30px; width: 17px; height: 17px; border-radius: 50%;
+    background: #fff; border: 4px solid var(--blue); box-shadow: 0 0 0 5px var(--columbia-light);
+  }
+  .exp-head { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+  .exp-id { display: flex; gap: 16px; align-items: center; min-width: 0; }
+  .exp h3 { margin: 0; font-size: 20px; color: var(--navy); line-height: 1.25; }
+  .sub { color: var(--muted); font-size: 14px; margin: 2px 0 0; }
+  .exp-meta { text-align: right; }
+  .exp-meta .loc { justify-content: flex-end; }
+  .role { margin-top: 20px; padding: 18px 20px; border-radius: 14px; background: var(--columbia-wash); border-left: 4px solid var(--columbia); }
+  .role h4 { margin: 0 0 8px; font-size: 16px; color: var(--navy); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .role h4 .yrs { font-size: 12.5px; font-weight: 600; color: var(--blue); background: #fff; border: 1px solid var(--border); padding: 2px 10px; border-radius: 999px; }
+  ul.bullets { margin: 0; padding-left: 0; list-style: none; }
+  ul.bullets li { position: relative; padding-left: 22px; margin: 7px 0; font-size: 15px; }
+  ul.bullets li::before {
+    content: ""; position: absolute; left: 4px; top: 10px; width: 7px; height: 7px; border-radius: 2px;
+    background: var(--blue); transform: rotate(45deg);
+  }
+
+  /* Additional info */
+  .info-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .info { display: flex; gap: 18px; align-items: flex-start; }
+  .info .ico {
+    width: 48px; height: 48px; border-radius: 14px; flex: none; display: grid; place-items: center;
+    background: var(--columbia); color: var(--navy);
+  }
+  .info .ico svg { width: 22px; height: 22px; }
+  .info h3 { margin: 2px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .12em; color: var(--blue); }
+  .info p { margin: 0; font-size: 15px; }
+
+  /* Contact */
+  .contact {
+    margin-top: 88px; border-radius: 28px; padding: 48px; color: #fff; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center;
+  }
+  .contact::before {
+    content: ""; position: absolute; width: 360px; height: 360px; right: -120px; top: -160px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(185,217,235,.45), transparent 70%);
+  }
+  .contact h2 { color: #fff; }
+  .contact p { color: rgba(255,255,255,.82); font-size: 17px; margin: 14px 0 0; }
+  .clist { display: grid; gap: 10px; position: relative; }
+  .citem {
+    display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; text-decoration: none;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(185,217,235,.25); color: #fff; transition: .2s; min-width: 0;
+  }
+  .citem:hover { background: var(--columbia); color: var(--navy); }
+  .citem svg { width: 20px; height: 20px; flex: none; }
+  .citem span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 15px; }
+  .citem small { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; opacity: .7; }
+
+  footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 14px; }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .edu-grid { grid-template-columns: 1fr; }
+    .portrait { width: 220px; height: 220px; }
+    .contact { grid-template-columns: 1fr; padding: 36px 28px; }
+  }
+  @media (max-width: 760px) {
+    .wrap { padding: 0 16px; }
+    .brand .name { display: none; }
+    .hero { padding: 40px 0 120px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+    .portrait { width: 150px; height: 150px; order: -1; }
+    .portrait::before { inset: -8px; border-radius: 26px; }
+    .portrait img { border-radius: 22px; border-width: 4px; }
+    .tiles { grid-template-columns: 1fr; gap: 14px; }
+    .tile { min-height: 0; }
+    .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .stat:nth-child(2) { border-right: 0; }
+    .stat:nth-child(-n+2) { border-bottom: 1px solid rgba(185,217,235,.15); }
+    .info-grid { grid-template-columns: 1fr; }
+    .timeline { padding-left: 26px; }
+    .timeline::before { left: 6px; }
+    .exp::before { left: -27px; }
+    .exp-meta { text-align: left; }
+    .exp-meta .loc { justify-content: flex-start; }
+    .card { padding: 20px; }
+    .role { padding: 14px 16px; }
+    .contact { margin-top: 64px; padding: 28px 20px; border-radius: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <nav class="wrap nav-inner" aria-label="Main">
+    <a class="brand" href="#top"><span class="mono">SB</span><span class="name">Sanket Bindra</span></a>
+    <ul>
+      <li><a class="link" href="#education">Education</a></li>
+      <li><a class="link" href="#experience">Experience</a></li>
+      <li><a class="link" href="#additional">Additional</a></li>
+      <li><a class="link" href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>MBA · HKUST &amp; Columbia Business School</p>
+        <h1 class="serif">Sanket Bindra</h1>
+        <p class="lede">Finance and strategy professional with eight years at JPMorgan, corporate banking at ICICI, and angel investing on the side. Currently in New York for a Columbia exchange term.</p>
+        <div class="chips">
+          <a class="btn primary" href="https://www.linkedin.com/in/sanketbindra" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.850 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.120 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            LinkedIn</a>
+          <a class="btn" href="https://github.com/sanketbindra7" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57v-2c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.290-1.23 3.290-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .3"/></svg>
+            GitHub</a>
+          <a class="btn" href="mailto:SBindra27@exch.gsb.columbia.edu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            Email</a>
+        </div>
+      </div>
+      <div class="portrait"><img src="DP.jpeg" alt="Portrait of Sanket Bindra"></div>
+    </div>
+  </div>
+
+  <!-- Quick-jump tiles -->
+  <div class="wrap tiles-wrap">
+    <div class="tiles">
+      <a class="tile" href="#education">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></div>
+        <div class="k">Education</div>
+        <div class="v">HKUST MBA · Columbia exchange</div>
+        <div class="s">MBA CGPA 3.85/4.00 · B.Tech, ICT Mumbai</div>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="tile" href="#experience">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+        <div class="k">Experience</div>
+        <div class="v">JPMorgan · ICICI · CICC</div>
+        <div class="s">IB, strategy, payments &amp; corporate banking</div>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="tile" href="#additional">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+        <div class="k">Beyond work</div>
+        <div class="v">Angel investor · Shotokan karate · Travel junkie</div>
+        <div class="s">SEBI-registered · investing since 2016</div>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="stats" aria-label="Highlights">
+      <div class="stat"><div class="n">8 yrs</div><div class="l">at JPMorgan (2016 – 2024)</div></div>
+      <div class="stat"><div class="n">3.85</div><div class="l">HKUST MBA CGPA / 4.00</div></div>
+      <div class="stat"><div class="n">USD 50M</div><div class="l">credit approved at ICICI</div></div>
+      <div class="stat"><div class="n">Top 1%</div><div class="l">of 100+ JPM Asia analysts</div></div>
+    </div>
+  </div>
+
+  <!-- Education -->
+  <section class="block" id="education">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2 class="serif">Education</h2></div>
+      <div class="grid edu-grid">
+        <article class="card edu reveal">
+          <div class="top"><div class="badge">CBS</div><span class="when">Aug 2026 – Jan 2027</span></div>
+          <h3>Columbia Business School</h3>
+          <div class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>New York, NY</div>
+          <p class="degree">MBA Exchange Program, Fall Term</p>
+          <div class="kv"><b>Coursework</b>
+            <div class="tags"><span class="tag">Financial Analysis &amp; Valuation</span><span class="tag">Private Wealth Mgmt.</span><span class="tag">Digital Investing</span><span class="tag">AI in Business</span><span class="tag">Leadership Development</span></div>
+          </div>
+        </article>
+
+        <article class="card edu reveal">
+          <div class="top"><div class="badge">HKUST</div><span class="when">2025 – Present</span></div>
+          <h3>The Hong Kong University of Science &amp; Technology</h3>
+          <div class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>Hong Kong</div>
+          <p class="degree">MBA, CGPA 3.85/4.00</p>
+          <p class="kv"><b>Leadership</b>President, Finance &amp; Investment Management Club (elected); Student Ambassador (APAC), Yale Program on Stakeholder Innovation &amp; Mgmt.</p>
+          <div class="kv"><b>Coursework</b>
+            <div class="tags"><span class="tag">M&amp;A and Financial Advisory</span><span class="tag">Value Investing</span><span class="tag">Corporate Finance</span><span class="tag">Management Consulting</span><span class="tag">Strategic Management</span></div>
+          </div>
+        </article>
+
+        <article class="card edu reveal">
+          <div class="top"><div class="badge">ICT</div><span class="when">2012 – 2016</span></div>
+          <h3>Institute of Chemical Technology</h3>
+          <div class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>Mumbai, India</div>
+          <p class="degree">B.Tech, Fibres &amp; Textiles Processing Technology, CGPA 8.00/10, May 2016</p>
+          <p class="kv"><b>Leadership</b>College Sponsorship Secretary (elected); raised USD 250K from international alumni donors</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="block" id="experience">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2 class="serif">Professional Experience</h2></div>
+      <div class="timeline">
+        <article class="card exp reveal">
+          <div class="exp-head">
+            <div class="exp-id"><div class="badge">CICC</div><div><h3>China International Capital Corporation (CICC)</h3><p class="sub">Leading Chinese investment bank with global wealth and asset management platforms</p></div></div>
+            <div class="exp-meta"><span class="when">May – Jul 2026</span><div class="loc">Hong Kong</div></div>
+          </div>
+          <div class="role">
+            <h4>Pro Bono Summer Research Project – India Wealth &amp; Asset Management Entry <span class="yrs">May – Jul 2026</span></h4>
+            <ul class="bullets">
+              <li>Assessed three India entry pathways (private wealth, asset management, corporate lending) against a USD 1.6T wealth AUM growth opportunity, evaluating seven regulatory entry routes following India's 2026 easing of Chinese FDI rules</li>
+              <li>Recommended a phased GIFT City IFSC entry as a fund management entity and banking unit, enabling USD-denominated India-exposure products for institutional and UHNW diaspora clients, with a three-phase roadmap to a Mumbai presence</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card exp reveal">
+          <div class="exp-head">
+            <div class="exp-id"><div class="badge">ICICI</div><div><h3>ICICI Bank</h3><p class="sub">Indian multinational bank operating in 11 countries with over USD 250B in assets</p></div></div>
+            <div class="exp-meta"><span class="when">2024 – 2025</span><div class="loc">Mumbai, India</div></div>
+          </div>
+          <div class="role">
+            <h4>Relationship Manager, Corporate Banking <span class="yrs">2024 – 2025</span></h4>
+            <ul class="bullets">
+              <li>Structured working capital and term finance solutions for large corporates, including a USD 900M global packaging company; advised on capital deployment to improve plant efficiency</li>
+              <li>Secured senior credit committee approval for a USD 50M credit proposal for a USD 1B synthetic glass manufacturer, coordinating across risk, legal and relationship teams from origination to sanction</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card exp reveal">
+          <div class="exp-head">
+            <div class="exp-id"><div class="badge">JPM</div><div><h3>JPMorgan Chase &amp; Co.</h3><p class="sub">Three roles across payments, strategy and investment banking</p></div></div>
+            <div class="exp-meta"><span class="when">2016 – 2024</span><div class="loc">Mumbai, India</div></div>
+          </div>
+          <div class="role">
+            <h4>Senior Associate, Payments Marketing &amp; Strategy <span class="yrs">2022 – 2024</span></h4>
+            <ul class="bullets">
+              <li>Led seven analysts across Singapore, Hong Kong and Shanghai on a 100+ client APAC study; presented to Payments CMO</li>
+              <li>Interviewed 15+ clients on USD 1M+ revenue deals across Americas, EMEA and APAC to identify growth opportunities</li>
+              <li>Evaluated Gen AI applications for JPMorgan Payments, projecting 30% faster content turnaround and USD 500K in annual savings; analysis included in CMO-level strategic recommendation</li>
+            </ul>
+          </div>
+          <div class="role">
+            <h4>Associate, Corporate Strategy &amp; Development <span class="yrs">2019 – 2022</span></h4>
+            <ul class="bullets">
+              <li>Devised and presented a three-pronged diversity strategy to JPM India leadership, contributing to an 8% (~60 HC) increase in talent diversity; received Impact Award from JPM India CEO</li>
+              <li>Led monthly governance forum with department heads to assess control gaps and audit readiness; built an automated tracking solution that reduced overdue employee training by 90%</li>
+            </ul>
+          </div>
+          <div class="role">
+            <h4>Analyst, Investment Banking Division <span class="yrs">2016 – 2018</span></h4>
+            <ul class="bullets">
+              <li>Built DCF, trading comps and roadshow materials for a USD 1B+ identity and access management company with US deal teams</li>
+              <li>Advised a US medical imaging company on a USD 5M capital raise; prepared valuation analysis and investor presentations and managed outreach, generating 10+ investor enquiries within one month</li>
+              <li>Ranked top 1% of 100+ Asia analysts for "China Healthcare: A Financial Sponsor's Perspective" at JPMorgan Hong Kong training</li>
+              <li>Converted 2016 summer internship into a full-time Analyst offer based on performance</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Additional -->
+  <section class="block" id="additional">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2 class="serif">Additional Information</h2></div>
+      <div class="grid info-grid">
+        <article class="card info reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+          <div><h3>Investing</h3><p>SEBI-registered angel investor (2024 – present) in early-stage Space Tech, Defense Tech, Clean Tech and AI start-ups via BYT Avenue; bottom-up fundamental investor in Indian equities since 2016</p></div>
+        </article>
+        <article class="card info reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 8 5-3 5 3-1.5-8"/></svg></div>
+          <div><h3>Certifications</h3><p>Financial Modeling &amp; Valuation Analyst (FMVA), Corporate Finance Institute (in progress)</p></div>
+        </article>
+        <article class="card info reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+          <div><h3>Languages</h3><div class="tags"><span class="tag">English (native)</span><span class="tag">Hindi (native)</span><span class="tag">Marathi (intermediate)</span><span class="tag">Punjabi (basic)</span></div></div>
+        </article>
+        <article class="card info reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg></div>
+          <div><h3>Interests</h3><div class="tags"><span class="tag">Shotokan karate (certified green belt)</span><span class="tag">Cricket</span><span class="tag">Travel</span></div></div>
+        </article>
+      </div>
+
+      <!-- Contact -->
+      <div class="contact reveal" id="contact">
+        <div style="position:relative">
+          <h2 class="serif">Let's connect</h2>
+          <p>Happy to talk finance, banking, strategy or investing. Email is the best way to reach me.</p>
+        </div>
+        <div class="clist">
+          <a class="citem" href="mailto:SBindra27@exch.gsb.columbia.edu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span><small>Columbia</small>SBindra27@exch.gsb.columbia.edu</span></a>
+          <a class="citem" href="mailto:ssbindra@connect.ust.hk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span><small>HKUST</small>ssbindra@connect.ust.hk</span></a>
+          <a class="citem" href="https://www.linkedin.com/in/sanketbindra" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg><span><small>LinkedIn</small>linkedin.com/in/sanketbindra</span></a>
+          <a class="citem" href="https://github.com/sanketbindra7" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57v-2c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .3"/></svg><span><small>GitHub</small>github.com/sanketbindra7</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Sanket Bindra</div>
+</footer>
+
+<script>
+  // Active nav link
+  const links = [...document.querySelectorAll('.nav a.link')];
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        map.get(e.target.id)?.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  map.forEach((_, id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+
+  // Reveal cards on scroll
+  const rv = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => rv.observe(el));
+</script>
+</body>
+</html>

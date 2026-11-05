@@ -1,0 +1,2 @@
+# Never publish the raw CV (AGENTS.md)
+*.pdf

@@ -244,10 +244,55 @@
 
   footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 14px; }
 
+  /* ---------- Finance layer ---------- */
+  body { font-variant-numeric: tabular-nums; }
+  .logo {
+    width: 64px; height: 64px; border-radius: 14px; flex: none; display: grid; place-items: center;
+    background: #fff; border: 1px solid var(--border); padding: 8px; box-shadow: 0 2px 6px rgba(11,37,69,.06);
+  }
+  .logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+
+  .ticker {
+    background: #071A33; color: #DCE9F3; border-bottom: 2px solid var(--columbia);
+    overflow: hidden; white-space: nowrap; font-size: 13px; position: relative;
+  }
+  .ticker-label {
+    position: absolute; left: 0; top: 0; bottom: 0; z-index: 2; display: flex; align-items: center;
+    padding: 0 14px; background: var(--columbia); color: var(--navy); font-weight: 800;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  }
+  .ticker-track { display: inline-flex; padding: 9px 0 9px 130px; animation: tick 60s linear infinite; }
+  .ticker:hover .ticker-track { animation-play-state: paused; }
+  .tk { display: inline-flex; align-items: center; gap: 8px; padding: 0 22px; border-right: 1px solid rgba(185,217,235,.18); }
+  .tk b { color: #fff; font-weight: 700; letter-spacing: .04em; }
+  .tk .up { color: #5FD39A; font-weight: 600; }
+  .tk .dn { color: #5FD39A; font-weight: 600; } /* reductions that are good news */
+  @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .hero-chart { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 70%; z-index: 0; pointer-events: none; }
+
+  .stats-head {
+    grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 24px; border-bottom: 1px solid rgba(185,217,235,.15);
+    font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--columbia);
+  }
+  .stats-head .live { display: inline-flex; align-items: center; gap: 6px; color: rgba(255,255,255,.6); }
+  .stats-head .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #5FD39A; }
+  .stat .n .arr { font-size: 15px; color: #5FD39A; margin-left: 6px; vertical-align: middle; }
+  .stat .l { text-transform: uppercase; letter-spacing: .08em; font-size: 11.5px; }
+
+  .fig { font-weight: 700; color: var(--navy); background: linear-gradient(transparent 62%, var(--columbia-light) 62%); padding: 0 2px; }
+
   /* Reveal on scroll */
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } .ticker-track { animation: none; } }
+  @media (max-width: 760px) {
+    .stats-head { padding: 10px 16px; }
+    .ticker-label { padding: 0 10px; }
+    .ticker-track { padding-left: 110px; }
+    .logo { width: 56px; height: 56px; }
+  }
 
   /* ---------- Responsive ---------- */
   @media (max-width: 900px) {
@@ -266,8 +311,8 @@
     .tiles { grid-template-columns: 1fr; gap: 14px; }
     .tile { min-height: 0; }
     .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .stat:nth-child(2) { border-right: 0; }
-    .stat:nth-child(-n+2) { border-bottom: 1px solid rgba(185,217,235,.15); }
+    .stat:nth-child(3) { border-right: 0; }
+    .stat:nth-child(2), .stat:nth-child(3) { border-bottom: 1px solid rgba(185,217,235,.15); }
     .info-grid { grid-template-columns: 1fr; }
     .timeline { padding-left: 26px; }
     .timeline::before { left: 6px; }
@@ -295,8 +340,46 @@
 </header>
 
 <main id="top">
+  <!-- Market-style ticker (figures from the CV) -->
+  <div class="ticker" aria-label="Career highlights">
+    <div class="ticker-label">Highlights</div>
+    <div class="ticker-track">
+      <span class="tk"><b>JPM</b> 2016 – 2024 <span class="up">▲ 8 yrs</span></span>
+      <span class="tk"><b>HKUST MBA</b> CGPA 3.85/4.00 <span class="up">▲</span></span>
+      <span class="tk"><b>ICICI</b> USD 50M credit approved <span class="up">▲</span></span>
+      <span class="tk"><b>CICC</b> USD 1.6T wealth AUM opportunity</span>
+      <span class="tk"><b>GEN AI</b> USD 500K annual savings <span class="up">▲ 30% faster</span></span>
+      <span class="tk"><b>DIVERSITY</b> Talent diversity <span class="up">▲ 8%</span></span>
+      <span class="tk"><b>CONTROLS</b> Overdue training <span class="dn">▼ 90%</span></span>
+      <span class="tk"><b>IBD</b> Top 1% of 100+ Asia analysts</span>
+      <span class="tk"><b>ICT</b> USD 250K raised from alumni <span class="up">▲</span></span>
+      <span class="tk"><b>CBS</b> Exchange · Aug 2026 – Jan 2027</span>
+    </div>
+  </div>
+
   <!-- Hero -->
   <div class="hero">
+    <svg class="hero-chart" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#1D4F91" stop-opacity=".22"/>
+          <stop offset="1" stop-color="#1D4F91" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <g stroke="#0B2545" stroke-opacity=".08" stroke-dasharray="4 6">
+        <line x1="0" y1="75" x2="1200" y2="75"/><line x1="0" y1="150" x2="1200" y2="150"/><line x1="0" y1="225" x2="1200" y2="225"/>
+      </g>
+      <g fill="#0B2545" fill-opacity=".07">
+        <rect x="20" y="262" width="22" height="38"/><rect x="90" y="270" width="22" height="30"/><rect x="160" y="255" width="22" height="45"/>
+        <rect x="230" y="266" width="22" height="34"/><rect x="300" y="250" width="22" height="50"/><rect x="370" y="268" width="22" height="32"/>
+        <rect x="440" y="246" width="22" height="54"/><rect x="510" y="260" width="22" height="40"/><rect x="580" y="242" width="22" height="58"/>
+        <rect x="650" y="258" width="22" height="42"/><rect x="720" y="238" width="22" height="62"/><rect x="790" y="252" width="22" height="48"/>
+        <rect x="860" y="234" width="22" height="66"/><rect x="930" y="248" width="22" height="52"/><rect x="1000" y="228" width="22" height="72"/>
+        <rect x="1070" y="244" width="22" height="56"/><rect x="1140" y="222" width="22" height="78"/>
+      </g>
+      <path d="M0,230 L70,215 L140,222 L210,196 L280,203 L350,178 L420,186 L490,158 L560,168 L630,138 L700,148 L770,118 L840,126 L910,98 L980,106 L1050,72 L1120,80 L1200,46 L1200,300 L0,300 Z" fill="url(#area)"/>
+      <path d="M0,230 L70,215 L140,222 L210,196 L280,203 L350,178 L420,186 L490,158 L560,168 L630,138 L700,148 L770,118 L840,126 L910,98 L980,106 L1050,72 L1120,80 L1200,46" fill="none" stroke="#1D4F91" stroke-opacity=".45" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
+    </svg>
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow"><span class="dot"></span>MBA · HKUST &amp; Columbia Business School</p>
@@ -344,9 +427,10 @@
       </a>
     </div>
 
-    <div class="stats" aria-label="Highlights">
-      <div class="stat"><div class="n">8 yrs</div><div class="l">at JPMorgan (2016 – 2024)</div></div>
-      <div class="stat"><div class="n">3.85</div><div class="l">HKUST MBA CGPA / 4.00</div></div>
+    <div class="stats" aria-label="Key metrics">
+      <div class="stats-head"><span>Key metrics</span><span class="live">As of Nov 2026</span></div>
+      <div class="stat"><div class="n">8 yrs<span class="arr">▲</span></div><div class="l">at JPMorgan (2016 – 2024)</div></div>
+      <div class="stat"><div class="n">3.85<span class="arr">▲</span></div><div class="l">HKUST MBA CGPA / 4.00</div></div>
       <div class="stat"><div class="n">USD 50M</div><div class="l">credit approved at ICICI</div></div>
       <div class="stat"><div class="n">Top 1%</div><div class="l">of 100+ JPM Asia analysts</div></div>
     </div>
@@ -358,7 +442,7 @@
       <div class="sec-head"><span class="sec-num">01</span><h2 class="serif">Education</h2></div>
       <div class="grid edu-grid">
         <article class="card edu reveal">
-          <div class="top"><div class="badge">CBS</div><span class="when">Aug 2026 – Jan 2027</span></div>
+          <div class="top"><div class="logo"><img src="logos/cbs.svg" alt="Columbia Business School logo"></div><span class="when">Aug 2026 – Jan 2027</span></div>
           <h3>Columbia Business School</h3>
           <div class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>New York, NY</div>
           <p class="degree">MBA Exchange Program, Fall Term</p>
@@ -368,7 +452,7 @@
         </article>
 
         <article class="card edu reveal">
-          <div class="top"><div class="badge">HKUST</div><span class="when">2025 – Present</span></div>
+          <div class="top"><div class="logo"><img src="logos/hkust.svg" alt="HKUST logo"></div><span class="when">2025 – Present</span></div>
           <h3>The Hong Kong University of Science &amp; Technology</h3>
           <div class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>Hong Kong</div>
           <p class="degree">MBA, CGPA 3.85/4.00</p>
@@ -379,7 +463,7 @@
         </article>
 
         <article class="card edu reveal">
-          <div class="top"><div class="badge">ICT</div><span class="when">2012 – 2016</span></div>
+          <div class="top"><div class="logo"><img src="logos/ict.png" alt="Institute of Chemical Technology logo"></div><span class="when">2012 – 2016</span></div>
           <h3>Institute of Chemical Technology</h3>
           <div class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>Mumbai, India</div>
           <p class="degree">B.Tech, Fibres &amp; Textiles Processing Technology, CGPA 8.00/10, May 2016</p>
@@ -513,6 +597,15 @@
     });
   }, { rootMargin: '-40% 0px -55% 0px' });
   map.forEach((_, id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+
+  // Duplicate ticker items for a seamless loop
+  const track = document.querySelector('.ticker-track');
+  if (track) track.innerHTML += track.innerHTML.replace(/<span class="tk">/g, '<span class="tk" aria-hidden="true">');
+
+  // Emphasise figures (USD amounts, percentages, counts) in experience bullets
+  document.querySelectorAll('#experience .bullets li').forEach(li => {
+    li.innerHTML = li.innerHTML.replace(/(USD\s[\d.,]+[KMBT]?\+?|~?\d+(?:\.\d+)?%|\b\d+\+)/g, '<span class="fig">$1</span>');
+  });
 
   // Reveal cards on scroll
   const rv = new IntersectionObserver(entries => {
